@@ -45,20 +45,20 @@ function renderInitialQuantities() {
 
 document.addEventListener('DOMContentLoaded', () => {
   renderInitialQuantities();
-});
 
-document.getElementById('increase').addEventListener('click', () => {
-  const multiEl = document.getElementById('multiplier');
-  const current = parseInt(multiEl.textContent);
-  const updated = current + 1;
-  multiEl.textContent = updated;
-  updateIngredients(updated);
-});
+  document.getElementById('increase').addEventListener('click', () => {
+    const multiEl = document.getElementById('multiplier');
+    const current = parseInt(multiEl.textContent);
+    const updated = current + 1;
+    multiEl.textContent = updated;
+    updateIngredients(updated);
+  });
 
-document.getElementById('decrease').addEventListener('click', () => {
-  const multiEl = document.getElementById('multiplier');
-  const current = parseInt(multiEl.textContent);
-  const updated = (current > 1) ? current - 1 : 1;
-  multiEl.textContent = updated;
-  updateIngredients(updated);
+  document.getElementById('decrease').addEventListener('click', () => {
+    const multiEl = document.getElementById('multiplier');
+    const current = parseInt(multiEl.textContent);
+    const updated = (current > 1) ? current - 1 : 1;
+    multiEl.textContent = updated;
+    updateIngredients(updated);
+  });
 });

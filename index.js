@@ -1,5 +1,3 @@
-const recipes = ["crackers.html"]; // add more as needed
-
 window.addEventListener('DOMContentLoaded', () => {
   fetch('recipes.json')
     .then(response => response.json())
