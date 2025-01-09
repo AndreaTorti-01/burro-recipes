@@ -14,7 +14,7 @@ window.addEventListener('DOMContentLoaded', () => {
         link.appendChild(recipeName);
         
         const thumb = document.createElement('img');
-        thumb.src = `images/${recipeFile.replace('.html', '.jpg')}`;
+        thumb.src = `images/${recipeFile.replace('.html', '.webp')}`;
         thumb.style.width = "100px";
         thumb.style.height = "auto";
         link.appendChild(thumb);
