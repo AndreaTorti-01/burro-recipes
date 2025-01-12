@@ -1,4 +1,7 @@
 window.addEventListener('DOMContentLoaded', () => {
+  const language = document.documentElement.lang;
+  const recipeFolder = language === 'en' ? 'recipes/en/' : 'recipes/it/';
+
   fetch('recipes.json')
     .then(response => response.json())
     .then(files => {
@@ -6,7 +9,7 @@ window.addEventListener('DOMContentLoaded', () => {
       listContainer.classList.add('recipes-grid');
       files.forEach((recipeFile) => {
         const link = document.createElement('a');
-        link.href = `recipes/${recipeFile}`;
+        link.href = recipeFolder + recipeFile;
         link.className = "recipe-link";
         
         const recipeName = document.createElement('span');
