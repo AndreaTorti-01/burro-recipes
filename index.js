@@ -13,7 +13,12 @@ window.addEventListener('DOMContentLoaded', () => {
         link.className = "recipe-link";
         
         const recipeName = document.createElement('span');
-        recipeName.textContent = recipeFile.replace('.html', '').replace(/\b\w/g, char => char.toUpperCase());
+        fetch(recipeFolder + recipeFile)
+          .then(r => r.text())
+          .then(html => {
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+            recipeName.textContent = doc.querySelector('h1')?.textContent || recipeFile.replace('.html', '');
+          });
         link.appendChild(recipeName);
         
         const thumb = document.createElement('img');
