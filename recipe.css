@@ -1,26 +1,20 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+@import 'common.css';
 
 body {
-  font-family: "Trebuchet MS", sans-serif;
+  font-weight: 400;
   font-size: 1.2em;
-  line-height: 1.6;
-  color: #000;
-  background-color: #fdfbd3;
-  transition: background-color 0.3s, color 0.3s;
 }
 
 header {
-  background: #ffe4b5;
-  color: #000;
   padding: 20px;
   width: 100%;
-  text-align: center;
   font-size: 1em;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+header h1 {
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
 }
 
 .container {
@@ -30,10 +24,13 @@ header {
   max-width: 800px;
   margin: 20px auto;
   padding: 40px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: var(--container-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-lg);
   text-align: center;
+  transform: translateY(0);
+  opacity: 1;
+  animation: fade-in 0.6s ease-out;
 }
 
 .recipe-image {
@@ -41,10 +38,15 @@ header {
   width: auto;
   max-width: 70%;
   height: auto;
-  border-radius: 8px;
+  border-radius: 12px;
   margin: 20px auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-lg);
   user-select: none;
+  transition: transform var(--transition-speed);
+}
+
+.recipe-image:hover {
+  transform: scale(1.02);
 }
 
 ul.ingredients {
@@ -57,41 +59,84 @@ ul.ingredients {
 
 .ingredients li {
   margin: 10px 0;
+  position: relative;
+  padding-left: 24px;
+  transition: transform var(--transition-speed);
+}
+
+.ingredients li::before {
+  content: "•";
+  position: absolute;
+  left: 8px;
+  color: var(--button-color);
+  font-weight: bold;
+}
+
+.ingredients li:hover {
+  transform: translateX(5px);
 }
 
 .serving-controls {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin: 30px 0;
   font-size: 1.5em;
   user-select: none;
 }
 
 .serving-controls button {
-  background-color: #007bff;
+  background-color: var(--button-color);
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 50%;
   cursor: pointer;
   margin: 0 2em;
   font-size: 1.5em;
-  align-items: center;
-  justify-content: center;
-  font-family: "Courier New", Courier, monospace;
   width: 1.5em;
   height: 1.5em;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-speed);
+  line-height: 1;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 60%;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+#increase {
+  background-image: url('resources/plus.svg');
+  text-indent: -9999px;
+  overflow: hidden;
+}
+
+#decrease {
+  background-image: url('resources/minus.svg');
+  text-indent: -9999px;
+  overflow: hidden;
 }
 
 .serving-controls button:hover {
-  background-color: #0056b3;
+  background-color: var(--button-hover);
+  transform: scale(1.1);
+  box-shadow: var(--shadow-md);
 }
 
-serving-controls span {
+.serving-controls button:active {
+  transform: scale(0.95);
+}
+
+.serving-controls button:focus {
+  outline: none;
+}
+
+.serving-controls span {
   margin: 0 10px;
+  font-weight: 500;
 }
 
 .instructions {
@@ -101,8 +146,9 @@ serving-controls span {
   text-align: left;
 }
 
-.instructions div {
+.instructions div, .instructions ul {
   width: 100%;
+  animation: slide-up 0.5s ease-out;
 }
 
 .instructions .full-width {
@@ -111,6 +157,68 @@ serving-controls span {
 
 .instructions .half-width {
   width: 100%;
+}
+
+.instructions li {
+  margin-bottom: 12px;
+  position: relative;
+  padding-left: 28px;
+}
+
+.instructions li::before {
+  display: none;
+}
+
+.home-button {
+  position: fixed;
+  top: 1em;
+  left: 1em;
+  background-color: var(--button-color);
+  color: white;
+  padding: 0.6em 1.2em;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 1em;
+  box-shadow: var(--shadow-md);
+  user-select: none;
+  transition: all var(--transition-speed);
+  z-index: 100;
+}
+
+.home-button:hover {
+  background-color: var(--button-hover);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.home-button:active {
+  transform: translateY(1px);
+}
+
+section {
+  margin: 30px 0;
+  width: 100%;
+  text-align: center;
+}
+
+section h2 {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  position: relative;
+  display: block;
+  text-align: center;
+  text-shadow: var(--text-shadow);
+}
+
+section h2::after {
+  content: '';
+  position: absolute;
+  width: 50%;
+  height: 3px;
+  background-color: var(--primary-color);
+  bottom: -5px;
+  left: 25%;
+  border-radius: 2px;
 }
 
 @media (min-width: 768px) {
@@ -123,20 +231,48 @@ serving-controls span {
   }
 }
 
-.home-button {
-  position: fixed;
-  top: 0.5em;
-  left: 0.5em;
-  background-color: #007bff;
-  color: white;
-  padding: 0.5em 1em;
-  border-radius: 5px;
-  text-decoration: none;
-  font-size: 1em;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  user-select: none;
-}
-
-.home-button:hover {
-  background-color: #0056b3;
+@media (max-width: 767px) {
+  body {
+    font-size: 1em;
+  }
+  
+  .container {
+    padding: 20px;
+    margin: 10px;
+  }
+  
+  .recipe-image {
+    max-width: 90%;
+  }
+  
+  .serving-controls {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .serving-controls button {
+    margin: 5px;
+  }
+  
+  header h1 {
+    font-size: 1.5em;
+  }
+  
+  .home-button {
+    padding: 0.4em 0.8em;
+    font-size: 0.9em;
+  }
+  
+  /* Fix for mobile where buttons might stay in active/hover state */
+  .serving-controls button:hover,
+  .serving-controls button:active,
+  .serving-controls button:focus {
+    transform: none;
+    background-color: var(--button-color);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .serving-controls button:active {
+    transform: scale(0.95);
+  }
 }
