@@ -106,6 +106,8 @@ ul.ingredients {
   background-size: 60%;
   outline: none;
   -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 #increase {
@@ -144,11 +146,18 @@ ul.ingredients {
   flex-wrap: wrap;
   gap: 20px;
   text-align: left;
+  position: relative; /* Add position relative to container */
 }
 
 .instructions div, .instructions ul {
   width: 100%;
   animation: slide-up 0.5s ease-out;
+}
+
+/* Hide default list item markers */
+.instructions ul {
+  list-style-type: none;
+  padding-left: 0;
 }
 
 .instructions .full-width {
@@ -157,16 +166,34 @@ ul.ingredients {
 
 .instructions .half-width {
   width: 100%;
+  position: relative;
+}
+
+/* Add separator line between instruction columns that works on all screen sizes */
+.instructions .half-width + .half-width::before {
+  content: '';
+  position: absolute;
+  left: -12px; /* Move further left to be before the bullet points */
+  top: 0;
+  height: 100%;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--primary-color) 15%, var(--primary-color) 85%, transparent);
 }
 
 .instructions li {
   margin-bottom: 12px;
   position: relative;
-  padding-left: 28px;
+  padding-left: 20px; /* Reduced from 28px to decrease space between markers and text */
 }
 
+/* Re-enable list markers for instruction items and style them properly */
 .instructions li::before {
-  display: none;
+  display: block;
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--button-color);
+  font-weight: bold;
 }
 
 .home-button {
@@ -229,6 +256,21 @@ section h2::after {
   .instructions .half-width {
     width: 48%;
   }
+  
+  /* Remove the previous separator implementation */
+  /* .instructions .half-width:first-child {
+    position: relative;
+  }
+  
+  .instructions .half-width:first-child::after {
+    content: '';
+    position: absolute;
+    top: 5%;
+    right: -10px;
+    height: 90%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--primary-color) 20%, var(--primary-color) 80%, transparent);
+  } */
 }
 
 @media (max-width: 767px) {
